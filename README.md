@@ -1,4 +1,4 @@
-# Dictionary Appm with React + Vite
+# Dictionary App with React + Vite
 
 This template provides a minimal setup to the dictionary, using the free dictionary api
 
