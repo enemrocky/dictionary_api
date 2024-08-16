@@ -1,78 +1,68 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { IoIosSearch } from "react-icons/io";
 import "./App.css";
 
 function App() {
 	const [word, setWord] = useState("");
 	const [meaning, setMeaning] = useState("");
-
-	useEffect(() => {
-		try {
-			const response = fetch(
-				"https://api.dictionaryapi.dev/api/v2/entries/en/${word}"
-			);
-
-			if (response.ok) {
-				console.log("Promise resolved and HTTP status is successful");
-				// ...do something with the response
-				response
-					.json()
-					.then(
-						(data) =>
-							setMeaning(
-								data[0].meanings[0].definitions[0].definition
-							),
-						setWord(data[0].word)
-					);
-			} else {
-				// Custom message for failed HTTP codes
-				if (response.status === 404) throw new Error("404, Not found");
-				if (response.status === 500)
-					throw new Error("500, internal server error");
-				// For any other server error
-				throw new Error(response.status);
-			}
-		} catch (error) {
-			console.error("Fetch", error);
-			// Output e.g.: "Fetch Error: 404, Not found"
-		}
-	}, [word, meaning]);
+	const [partOfSpeech, setPartOfSpeech] = useState("");
 
 	const nameChangeHandler = (e) => {
 		setWord(e.target.value);
 	};
 
+	const searchHandler = (e) => {
+		e.preventDefault();
+		fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+			.then((response) => response.json())
+			.then((data) => {
+				setPartOfSpeech(data[0].meanings[1].partOfSpeech);
+				setMeaning(data[0].meanings[0].definitions[0].definition);
+			});
+	};
+
+	// to see history add every valid word to an array and loop through the array for history
+
 	return (
-		<div className="w-1/2">
-			<form className="flex bg-red-500 flex-col">
-				<label htmlFor="#">search word</label>
-				<input
-					className="p-3"
-					type="text"
-					placeholder="enter word"
-					onChange={nameChangeHandler}
-				/>
-			</form>
-			<div className="w-100 p-4 bg-green-600">
-				<div>{word}</div>
-				<div>{meaning}</div>
+		<div className=" bg-slate-500 w-screen h-screen flex  justify-center">
+			<div className="w-1/3 mt-20">
+				<form className="flex bg-white flex-col rounded-t-xl p-6 gap-8">
+					<h1 className="text-3xl">Search word</h1>
+					<div className="flex w-full bg-white rounded-lg border-2">
+						<input
+							className="rounded-s-lg p-3 w-full outline-none"
+							type="text"
+							placeholder="enter word"
+							onChange={nameChangeHandler}
+						/>
+						<button
+							type="submit"
+							className="pe-4"
+							onClick={searchHandler}>
+							<IoIosSearch />
+						</button>
+						{/* button on click sets the word variable */}
+					</div>
+				</form>
+				{word.length > 0 ? (
+					<div className="flex flex-col gap-4 px-6 pb-12 bg-white rounded-b-xl">
+						<div className="flex gap-2 capitalize">
+							{word}:{" "}
+							<p className="text-slate-400 lowercase">
+								{partOfSpeech}
+							</p>
+						</div>
+						<div>
+							<p className="text-slate-400">Meaning:</p>
+							<div>{meaning}</div>
+						</div>
+					</div>
+				) : (
+					<p className="text-red-600">Enter a word</p>
+				)}
 			</div>
 		</div>
 	);
 }
 
 export default App;
-// fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`).then(
-// 	(response) =>
-// 		response
-// 			.json()
-// 			.then(
-// 				(data) =>
-// 					setMeaning(
-// 						data[0].meanings[0].definitions[0].definition
-// 					),
-// 				setWord(data[0].word)
-// 			)
-// 			.catch((err) => {
-// 				console.log(err);
-// 			})
-// );
