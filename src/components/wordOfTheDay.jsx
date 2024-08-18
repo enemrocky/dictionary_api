@@ -8,7 +8,7 @@ const WordOfTheDay = () => {
 	useEffect(() => {
 		fetch("https://random-word-api.herokuapp.com/word")
 			.then((res) => res.json())
-			.then((data) => setRandomWord(data));
+			.then((data) => setRandomWord(data[0]));
 	}, []);
 
 	useEffect(() => {
@@ -24,11 +24,11 @@ const WordOfTheDay = () => {
 
 	return (
 		<div className="w-1/3 flex justify-center">
-			<div className="w-4/5 h-fit p-4 mt-20 bg-white rounded-xl">
+			<div className="w-4/5 h-fit p-4 mt-20 bg-white rounded-xl shadow-2xl">
 				<h2 className="text-3xl mb-10 p-6">Word of the day</h2>
 				<Result
 					meaning={WOTDMMeaning}
-					word={randomWord}
+					returnWord={randomWord}
 					enterWord={enterWord}
 				/>
 			</div>
