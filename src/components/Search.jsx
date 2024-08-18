@@ -34,14 +34,14 @@ const Search = ({ onPullData }) => {
 
 	return (
 		<div className="flex justify-center w-2/5">
-			<div className="mt-20 h-fit w-full shadow-xl">
+			<div className="mt-20 h-fit w-full shadow-lg">
 				<form className="flex bg-white flex-col rounded-xl pb-12 p-6 gap-8">
 					<h1 className="text-4xl">Search word</h1>
 					<div className="flex w-full bg-white rounded-lg border-2">
 						<input
 							className="rounded-s-lg p-3 w-full outline-none"
 							type="text"
-							placeholder="enter word"
+							placeholder="Enter word"
 							onChange={nameChangeHandler}
 							value={word}
 						/>
@@ -64,7 +64,7 @@ const Search = ({ onPullData }) => {
 };
 
 Search.propTypes = {
-	onPullData: PropTypes.object,
+	onPullData: PropTypes.func,
 };
 
 export default Search;
