@@ -16,16 +16,16 @@ const WordOfTheDay = () => {
 			.then((response) => response.json())
 			.then((data) => {
 				setWOTDMeaning(data[0].meanings[0].definitions[0].definition);
-			})
-			.catch((error) => console.log(error));
+			});
 
-		setEnterWord("Enter A Word");
+		setEnterWord("Failed to Fetch");
 		// else .... give error to user
 	}, [randomWord]);
 
 	return (
-		<div className=" bg-white w-screen h-screen flex  justify-center">
-			<div className="w-1/3 mt-20">
+		<div className="w-1/3 flex justify-center">
+			<div className="w-4/5 h-fit p-4 mt-20 bg-white rounded-xl">
+				<h2 className="text-3xl mb-10 p-6">Word of the day</h2>
 				<Result
 					meaning={WOTDMMeaning}
 					word={randomWord}

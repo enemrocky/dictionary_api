@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import Result from "./Result";
+import History from "./history";
 
 const Search = () => {
 	const [word, setWord] = useState("");
 	const [meaning, setMeaning] = useState("");
-	const [enterWord, setEnterWord] = useState("");
+	const [validWord, setValidWord] = useState("");
+	const [enterWord, setEnterWord] = useState(""); //Error message
 
 	const nameChangeHandler = (e) => {
 		setWord(e.target.value);
@@ -18,20 +20,19 @@ const Search = () => {
 		fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
 			.then((response) => response.json())
 			.then((data) => {
+				if (data) setValidWord(word);
 				setMeaning(data[0].meanings[0].definitions[0].definition);
-			})
-			.catch((error) => console.log(error));
-		setEnterWord("Enter A Word");
-
+			});
+		setEnterWord("enter a word");
 		// else .... give error to user
 	};
 
 	// to see history add every valid word to an array and loop through the array for history
 	return (
-		<div className=" bg-slate-500 w-screen h-screen flex  justify-center">
-			<div className="w-1/3 mt-20">
+		<div className="flex justify-center w-2/5">
+			<div className="mt-20 w-full">
 				<form className="flex bg-white flex-col rounded-xl pb-12 p-6 gap-8">
-					<h1 className="text-3xl">Search word</h1>
+					<h1 className="text-4xl">Search word</h1>
 					<div className="flex w-full bg-white rounded-lg border-2">
 						<input
 							className="rounded-s-lg p-3 w-full outline-none"
@@ -49,6 +50,7 @@ const Search = () => {
 					</div>
 				</form>
 				<Result meaning={meaning} enterWord={enterWord} word={word} />
+				<History validWord={validWord} />
 			</div>
 		</div>
 	);

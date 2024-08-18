@@ -3,10 +3,10 @@ import Search from "./components/Search";
 
 function App() {
 	return (
-		<>
-			<Search />
+		<div className="bg-slate-500 flex h-screen text-xl">
 			<WordOfTheDay />
-		</>
+			<Search />
+		</div>
 	);
 }
 
