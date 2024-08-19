@@ -6,7 +6,7 @@ const WordOfTheDay = () => {
 	const [randomWord, setRandomWord] = useState("");
 	const [WOTDMMeaning, setWOTDMeaning] = useState("");
 	useEffect(() => {
-		fetch("https://random-word-api.herokuapp.com/word")
+		fetch("https://random-word-api.herokuapp.com/word?length=8")
 			.then((res) => res.json())
 			.then((data) => setRandomWord(data[0]));
 	}, []);
