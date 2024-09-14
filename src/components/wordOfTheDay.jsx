@@ -23,8 +23,8 @@ const WordOfTheDay = () => {
 	}, [randomWord]);
 
 	return (
-		<div className="w-1/3 flex justify-center">
-			<div className="w-4/5 h-fit p-4 mt-20 bg-white rounded-xl shadow-2xl">
+		<div className="w-full lg:w-1/3 flex justify-center order-2 lg:order-1">
+			<div className="w-full lg:w-4/5 h-fit p-4 lg:mt-20 bg-white rounded-xl shadow-2xl">
 				<h2 className="text-3xl mb-10 p-6">Word of the day</h2>
 				<Result
 					meaning={WOTDMMeaning}

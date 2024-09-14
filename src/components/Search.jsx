@@ -33,8 +33,8 @@ const Search = ({ onPullData }) => {
 	};
 
 	return (
-		<div className="flex justify-center w-2/5">
-			<div className="mt-20 h-fit w-full shadow-lg">
+		<div className="flex justify-center w-full lg:w-2/5 order-1 lg:order-2">
+			<div className="mt-10 lg:mt-20 h-fit w-full shadow-lg">
 				<form className="flex bg-white flex-col rounded-xl pb-12 p-6 gap-8">
 					<h1 className="text-4xl">Search word</h1>
 					<div className="flex w-full bg-white rounded-lg border-2">
